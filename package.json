@@ -1,0 +1,19 @@
+{
+  "name": "web-project-slae",
+  "version": "1.0.0",
+  "description": "Веб-застосування для розв'язування СЛАР з власним балансувальником навантаження",
+  "main": "balancer/index.js",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node balancer/index.js",
+    "app": "node appserver/server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "pg": "^8.23.1",
+    "selfsigned": "^5.5.0"
+  }
+}
