@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Панель адміністратора</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <h1>Панель адміністратора</h1>
+  <span class="spacer"></span>
+  <span class="served" id="updated">—</span>
+  <a href="/">До задач</a>
+</header>
+
+<main>
+  <div class="notice err" id="adminError" hidden></div>
+
+  <div class="stats" id="stats" style="margin-bottom:16px"></div>
+
+  <section class="panel">
+    <div class="row">
+      <h2 style="margin:0">Сервери застосувань</h2>
+      <button class="auto small" id="addServer">+ Запустити сервер</button>
+    </div>
+    <p class="hint" id="algo"></p>
+    <div class="servers" id="servers"></div>
+  </section>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>Виконуються зараз</h2>
+      <div class="table-wrap">
+        <table><thead><tr><th>#</th><th>Користувач</th><th>n</th><th>Сервер</th><th>Прогрес</th><th></th></tr></thead>
+          <tbody id="running"></tbody></table>
+      </div>
+    </section>
+    <section class="panel">
+      <h2>Черга</h2>
+      <div class="table-wrap">
+        <table><thead><tr><th>Позиція</th><th>#</th><th>Користувач</th><th>n</th><th>Очікування</th><th></th></tr></thead>
+          <tbody id="queue"></tbody></table>
+      </div>
+    </section>
+  </div>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>Рішення балансувальника</h2>
+      <div class="log" id="decisions"></div>
+    </section>
+    <section class="panel">
+      <h2>Журнал подій (масштабування, збої)</h2>
+      <div class="log" id="events"></div>
+    </section>
+  </div>
+</main>
+
+<script src="/api.js"></script>
+<script src="/admin.js"></script>
+</body>
+</html>

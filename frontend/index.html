@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Розв'язувач СЛАР</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <h1>Розв'язувач систем лінійних рівнянь</h1>
+  <span class="spacer"></span>
+  <span class="served" id="served">Запит обслужив: —</span>
+  <span id="who"></span>
+  <a href="/admin.html" id="adminLink" hidden>Адмін-панель</a>
+  <button class="link" id="logoutBtn" hidden>Вийти</button>
+</header>
+
+<main>
+  <section id="authView" class="panel auth" hidden>
+    <div class="tabs">
+      <button id="tabLogin">Вхід</button>
+      <button id="tabRegister" class="secondary">Реєстрація</button>
+    </div>
+    <form id="authForm" novalidate>
+      <label for="username">Логін</label>
+      <input type="text" id="username" autocomplete="username" required minlength="3" maxlength="32">
+      <label for="password">Пароль</label>
+      <input type="password" id="password" autocomplete="current-password" required minlength="6" maxlength="128">
+      <div class="error" id="authError"></div>
+      <button type="submit" id="authSubmit" style="width:100%">Увійти</button>
+    </form>
+    <p class="hint">З'єднання захищене HTTPS. Пароль зберігається у вигляді хешу (scrypt), сесія — підписаний JWT-токен.</p>
+  </section>
+
+  <div id="appView" hidden>
+    <div class="grid">
+      <section class="panel">
+        <h2>Нова задача: розв'язати систему Ax = b</h2>
+        <form id="taskForm" novalidate>
+          <div class="radio">
+            <label><input type="radio" name="mode" value="random" checked> Випадкова система</label>
+            <label><input type="radio" name="mode" value="manual"> Ввести вручну</label>
+          </div>
+          <div class="row">
+            <div>
+              <label for="n">Кількість невідомих n</label>
+              <input type="number" id="n" value="1500" min="2">
+            </div>
+            <div id="seedBox">
+              <label for="seed">Seed (необов'язково)</label>
+              <input type="number" id="seed" placeholder="випадковий" min="0">
+            </div>
+          </div>
+          <div id="manualBox" hidden>
+            <label for="matrixA">Матриця A (n рядків по n чисел через пробіл)</label>
+            <textarea id="matrixA" placeholder="2 1 -1&#10;-3 -1 2&#10;-2 1 2"></textarea>
+            <label for="vectorB">Вектор b (n чисел)</label>
+            <input type="text" id="vectorB" placeholder="8 -11 -3">
+            <button type="button" class="secondary small" id="exampleBtn" style="margin-top:8px">Вставити приклад</button>
+          </div>
+          <div class="hint" id="estimate"></div>
+          <div class="error" id="taskError"></div>
+          <button type="submit" id="submitBtn">Запустити обчислення</button>
+        </form>
+        <div class="hint" id="limitsInfo"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Поточні задачі</h2>
+        <div id="activeList"><div class="empty">Немає активних задач</div></div>
+      </section>
+    </div>
+
+    <section class="panel">
+      <h2>Історія задач</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>n</th><th>Статус</th><th>Сервер</th><th>Створено</th><th>Тривалість</th><th></th></tr></thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+      </div>
+      <div class="empty" id="historyEmpty">Історія порожня</div>
+    </section>
+  </div>
+</main>
+
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <div class="row"><h2 id="modalTitle" style="margin:0">Результат</h2><button class="secondary small auto" id="modalClose">Закрити</button></div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="/api.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>
